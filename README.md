@@ -6,7 +6,12 @@
 
 ---
 
-## 一、启动与访问
+## 一、在线访问与本地启动
+
+- **在线地址（可直接分享）**：https://yhn-tec.github.io/zhuaji/
+- 仓库：https://github.com/YHN-TEC/zhuaji
+
+本地运行：
 
 ```bash
 cd zhuaji
@@ -14,8 +19,9 @@ npm install          # 首次运行
 npm run dev          # 开发模式
 ```
 
-- 访问地址：**http://127.0.0.1:5180**
+- 本地访问地址：**http://127.0.0.1:5180**
 - 生产构建：`npm run build`，预览：`npm run preview`（http://127.0.0.1:5181）
+- 部署：推送到 `main` 分支即由 GitHub Actions 自动构建并发布到 GitHub Pages（见 `.github/workflows/deploy.yml`）
 
 进入后可直接选择：
 
@@ -140,6 +146,17 @@ zhuaji/
 - **自检脚本**：`node scripts/shots.cjs`（桌面 1440 / 移动 390 全页面截图 + 横向溢出检测）、`node scripts/flow.cjs`（建档 → 记录 → 提醒 → 分享 → 评论全链路）
 
 已实测：桌面 1440×940 与移动 390×844 下所有页面**无横向溢出、无文本重叠、无空白破图**；核心链路无控制台报错。
+线上环境（GitHub Pages 子路径 `/zhuaji/`）同样验证通过：资源、图片、路由、刷新均正常。
+
+---
+
+## 四之二、部署说明（GitHub Pages）
+
+- 构建产物使用相对路径（`base: './'`），因此可以直接部署在 `/<repo>/` 子路径下；
+- 路由使用 HashRouter，刷新任意页面不会 404；
+- 推送 `main` 后自动触发 `.github/workflows/deploy.yml`：`npm ci` → `npm run build` → 上传 `dist` → 发布 Pages；
+- 手动重新部署：GitHub 仓库 → Actions → Deploy to GitHub Pages → Run workflow；
+- 若想换成自己的域名，在仓库 Settings → Pages → Custom domain 中配置即可，无需改代码。
 
 ---
 
